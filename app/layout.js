@@ -1,11 +1,12 @@
-import { Anton, Inter, Pinyon_Script } from "next/font/google";
+import { Gloock, Hanken_Grotesk, Pinyon_Script, Zalando_Sans_Expanded } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { site } from "@/lib/site";
 
-const display = Anton({ weight: "400", subsets: ["latin"], variable: "--font-display" });
-const body = Inter({ subsets: ["latin"], variable: "--font-body" });
+const body = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-body" });
+const wide = Zalando_Sans_Expanded({ subsets: ["latin"], variable: "--font-wide" });
+const serif = Gloock({ weight: "400", subsets: ["latin"], variable: "--font-serif" });
 const script = Pinyon_Script({ weight: "400", subsets: ["latin"], variable: "--font-script" });
 
 export const metadata = {
@@ -24,12 +25,12 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0d0d0d",
+  themeColor: "#400d1c",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${script.variable}`}>
+    <html lang="en" className={`${body.variable} ${wide.variable} ${serif.variable} ${script.variable}`}>
       <body>
         <Header />
         <main>{children}</main>

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import LoopVideo from "@/components/LoopVideo";
 import Reveal from "@/components/Reveal";
 import { academy, site, whatsappLink } from "@/lib/site";
 
@@ -12,139 +11,131 @@ export const metadata = {
 const enrolMsg = "Hi Perfetto Academy! I'd like to enrol for the next batch. Please send me the details.";
 
 const learn = [
-  "Using and caring for industrial and domestic sewing machines",
+  "Sewing machine handling and care",
   "Taking accurate body measurements",
-  "Pattern drafting for joggers, hoodies, tees and jackets",
-  "Cutting, sewing and professional finishing",
-  "Piping, colour-blocking and panel work",
-  "Pricing, photographing and selling what you make",
+  "Pattern drafting",
+  "Cutting and sewing",
+  "Piping and colour-blocking",
+  "Professional finishing",
+  "Pricing and selling your work",
 ];
 
 export default function AcademyPage() {
   return (
     <>
-      <section className="ac-hero">
-        <div className="container ac-hero__inner">
-          <div className="ac-hero__copy">
-            <p className="eyebrow eyebrow--light">Perfetto Academy · Enrolment open</p>
-            <h1 className="ac-hero__title">
-              <span>Learn the</span>
-              <span>craft.</span>
-              <span className="ember-text">Build your</span>
-              <span className="ember-text">legacy.</span>
-            </h1>
-            <p className="ac-hero__lede">
-              A hands-on fashion school in Benin City, teaching streetwear the way we make it at Perfetto. Come in as a
-              complete beginner or sharpen the skills you already have.
-            </p>
-            <div className="hero__actions">
-              <a className="btn btn--ember" href={whatsappLink(enrolMsg)} target="_blank" rel="noopener noreferrer">
-                Enrol now
-              </a>
-              <a className="btn btn--light-ghost" href={`tel:+${site.whatsapp}`}>
-                Call {site.phoneDisplay}
-              </a>
-            </div>
-          </div>
-          <div className="ac-hero__media">
-            <LoopVideo
-              src="/media/academy-graduates.mp4"
-              poster="/media/academy-graduates.jpg"
-              label="Perfetto Academy graduates with their certificates, wearing pieces they made"
-            />
-            <span className="badge-round">
-              Application
-              <br />
-              fee
-              <strong>{academy.fee}</strong>
-            </span>
+      <section className="ahero">
+        <video
+          className="ahero__bg"
+          src="/media/academy-graduates.mp4"
+          poster="/media/academy-graduates.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
+        <div className="ahero__frame">
+          <video
+            src="/media/academy-graduates.mp4"
+            poster="/media/academy-graduates.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Perfetto Academy graduates showing their certificates and the pieces they made"
+          />
+        </div>
+        <div className="hero__bottom">
+          <p className="hero__aside">Enrolment open for the next batch. Application fee {academy.fee}.</p>
+          <h1 className="hero__mark hero__mark--sm">Academy</h1>
+          <div className="hero__labels">
+            <span>Beginner · Intermediate · Advanced</span>
+            <span>2 &amp; 4 month programmes</span>
+            <span>Benin City, Nigeria</span>
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <Reveal className="section__head">
-            <p className="eyebrow">Choose your level</p>
-            <h2 className="display">Three levels, two lengths</h2>
-            <p className="section__lede">
-              Each level runs as a 2-month or a 4-month programme. Not sure where to start? Message us and we&rsquo;ll
-              help you choose.
-            </p>
+      <section className="intro">
+        <Reveal className="intro__copy">
+          <p>
+            A hands-on fashion school teaching streetwear the way we make it at Perfetto. Come in as a complete beginner
+            or sharpen the skills you already have.
+          </p>
+          <a className="pill" href={whatsappLink(enrolMsg)} target="_blank" rel="noopener noreferrer">
+            Enrol on WhatsApp
+          </a>
+        </Reveal>
+      </section>
+
+      <hr className="rule" />
+
+      <section className="levels">
+        {academy.levels.map((l, i) => (
+          <Reveal key={l.name} className="levels__row" delay={i * 80}>
+            <span className="levels__n">{i + 1}</span>
+            <h2>{l.name}</h2>
+            <p>{l.body}</p>
+            <span className="levels__dur">{academy.durations.join(" / ")}</span>
           </Reveal>
-          <div className="levels">
-            {academy.levels.map((l, i) => (
-              <Reveal key={l.name} className="level" delay={i * 90}>
-                <span className="level__n">0{i + 1}</span>
-                <h3>{l.name}</h3>
-                <p>{l.body}</p>
-                <div className="chips">
-                  {academy.durations.map((d) => (
-                    <span key={d} className="chip chip--ghost">
-                      {d}
-                    </span>
-                  ))}
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
+        ))}
       </section>
 
-      <section className="section learn">
-        <div className="container learn__inner">
-          <Reveal className="learn__media">
+      <hr className="rule" />
+
+      <section className="makes">
+        <div className="make">
+          <div className="make__media">
             <Image
               src="/media/navy-piped-set.webp"
-              alt="Navy piped half-zip tracksuit, an example of the finishing students learn"
+              alt="Navy piped half-zip set, an example of the finishing students learn"
               fill
-              sizes="(max-width: 900px) 100vw, 40vw"
+              sizes="(max-width: 860px) 100vw, 45vw"
+              className="is-on"
             />
-          </Reveal>
-          <Reveal className="learn__copy" delay={100}>
-            <p className="eyebrow">What you&rsquo;ll learn</p>
-            <h2 className="display">From first stitch to finished set</h2>
-            <ul className="ticks ticks--dark">
-              {learn.map((t) => (
-                <li key={t}>{t}</li>
+          </div>
+          <div>
+            <p className="eyebrow make__eyebrow">What you&rsquo;ll learn</p>
+            <ol className="make__list make__list--static">
+              {learn.map((t, i) => (
+                <li key={t}>
+                  <span>
+                    <sup>{i + 1}</sup>
+                    {t}
+                  </span>
+                </li>
               ))}
-            </ul>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section facts">
-        <div className="container">
-          <div className="facts__grid">
-            {academy.facts.map((f, i) => (
-              <Reveal key={f} className="fact" delay={i * 70}>
-                <span>✂</span>
-                <p>{f}</p>
-              </Reveal>
-            ))}
+            </ol>
           </div>
         </div>
       </section>
 
-      <section className="section enrol">
-        <div className="container enrol__inner">
-          <Reveal>
-            <p className="eyebrow eyebrow--light">Ready to start?</p>
-            <h2 className="display display--light">Save your spot in the next batch</h2>
-            <p>
-              Send us a message on WhatsApp to enrol, or visit us at {site.address.line1}, {site.address.city},{" "}
-              {site.address.state}.
-            </p>
+      <section className="facts">
+        {academy.facts.map((f, i) => (
+          <Reveal key={f} className="facts__cell" delay={i * 60}>
+            <sup>{i + 1}</sup>
+            <p>{f}</p>
           </Reveal>
-          <Reveal className="enrol__actions" delay={100}>
-            <a className="btn btn--ember" href={whatsappLink(enrolMsg)} target="_blank" rel="noopener noreferrer">
-              Enrol on WhatsApp
+        ))}
+      </section>
+
+      <section className="intro intro--wine">
+        <Reveal className="intro__copy">
+          <p className="eyebrow">Ready to start?</p>
+          <p>
+            Message us on WhatsApp to save your spot, or visit us at {site.address.line1}, {site.address.city}.
+          </p>
+          <div className="center center--row">
+            <a className="pill pill--light" href={whatsappLink(enrolMsg)} target="_blank" rel="noopener noreferrer">
+              Enrol now
             </a>
-            <a className="btn btn--light-ghost" href={site.socials.academyInstagram} target="_blank" rel="noopener noreferrer">
-              @perfetto_academy
+            <a className="pill pill--light" href={`tel:+${site.whatsapp}`}>
+              Call {site.phoneDisplay}
             </a>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </section>
     </>
   );

@@ -32,12 +32,16 @@ export default function OrderForm() {
   };
 
   return (
-    <form className="order-form" onSubmit={submit}>
-      <label>
-        <span>Your name</span>
-        <input required value={form.name} onChange={set("name")} placeholder="e.g. Ada" autoComplete="name" />
+    <form className="lineform" onSubmit={submit}>
+      <label className="lineform__cell">
+        <span>Name</span>
+        <input required value={form.name} onChange={set("name")} autoComplete="name" />
       </label>
-      <label>
+      <label className="lineform__cell">
+        <span>Deliver to (city)</span>
+        <input value={form.city} onChange={set("city")} autoComplete="address-level2" />
+      </label>
+      <label className="lineform__cell">
         <span>Piece</span>
         <select value={form.piece} onChange={set("piece")}>
           {pieces.map((p) => (
@@ -46,32 +50,28 @@ export default function OrderForm() {
           <option>Something custom (my own design)</option>
         </select>
       </label>
-      <div className="order-form__row">
-        <label>
-          <span>Size</span>
-          <select value={form.size} onChange={set("size")}>
-            {sizes.map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Colour</span>
-          <input value={form.colour} onChange={set("colour")} placeholder="Any colour you like" />
-        </label>
-      </div>
-      <label>
-        <span>Deliver to (city)</span>
-        <input value={form.city} onChange={set("city")} placeholder="Benin City, Lagos, Abuja…" autoComplete="address-level2" />
+      <label className="lineform__cell">
+        <span>Size</span>
+        <select value={form.size} onChange={set("size")}>
+          {sizes.map((s) => (
+            <option key={s}>{s}</option>
+          ))}
+        </select>
       </label>
-      <label>
+      <label className="lineform__cell lineform__cell--full">
+        <span>Colour</span>
+        <input value={form.colour} onChange={set("colour")} placeholder="Any colour you like" />
+      </label>
+      <label className="lineform__cell lineform__cell--full lineform__cell--tall">
         <span>Design notes</span>
-        <textarea rows={3} value={form.notes} onChange={set("notes")} placeholder="Name or logo to print, cropped or full length, piping colour…" />
+        <textarea rows={5} value={form.notes} onChange={set("notes")} placeholder="Name or logo to print, cropped or full length, piping colour…" />
       </label>
-      <button className="btn btn--ember btn--block" type="submit">
-        Send order on WhatsApp
-      </button>
-      <p className="order-form__fine">Opens WhatsApp with your order typed out. Nothing is sent until you press send.</p>
+      <div className="lineform__foot">
+        <p>Opens WhatsApp with your order typed out. Nothing is sent until you press send.</p>
+        <button className="pill pill--solid" type="submit">
+          Send on WhatsApp
+        </button>
+      </div>
     </form>
   );
 }
