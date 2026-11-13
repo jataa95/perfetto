@@ -1,12 +1,12 @@
-import { Gloock, Hanken_Grotesk, Pinyon_Script, Zalando_Sans_Expanded } from "next/font/google";
+import { Instrument_Serif, Inter_Tight, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Badge from "@/components/Badge";
 import { site } from "@/lib/site";
 
-const body = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-body" });
-const wide = Zalando_Sans_Expanded({ subsets: ["latin"], variable: "--font-wide" });
-const serif = Gloock({ weight: "400", subsets: ["latin"], variable: "--font-serif" });
+const sans = Inter_Tight({ subsets: ["latin"], variable: "--font-sans" });
+const serif = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-serif" });
 const script = Pinyon_Script({ weight: "400", subsets: ["latin"], variable: "--font-script" });
 
 export const metadata = {
@@ -25,16 +25,17 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#400d1c",
+  themeColor: "#f4f4f4",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${body.variable} ${wide.variable} ${serif.variable} ${script.variable}`}>
+    <html lang="en" className={`${sans.variable} ${serif.variable} ${script.variable}`}>
       <body>
         <Header />
         <main>{children}</main>
         <Footer />
+        <Badge />
       </body>
     </html>
   );

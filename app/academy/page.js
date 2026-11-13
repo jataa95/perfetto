@@ -1,5 +1,7 @@
-import Image from "next/image";
+import Btn from "@/components/Btn";
+import ContactCTA from "@/components/ContactCTA";
 import Reveal from "@/components/Reveal";
+import WavyLink from "@/components/WavyLink";
 import { academy, site, whatsappLink } from "@/lib/site";
 
 export const metadata = {
@@ -9,6 +11,9 @@ export const metadata = {
 };
 
 const enrolMsg = "Hi Perfetto Academy! I'd like to enrol for the next batch. Please send me the details.";
+
+const levelColours = ["#400d1c", "#a36d6c", "#f26a1b"];
+const levelTilts = [-3, 1.5, 3.5];
 
 const learn = [
   "Sewing machine handling and care",
@@ -23,19 +28,8 @@ const learn = [
 export default function AcademyPage() {
   return (
     <>
-      <section className="ahero">
-        <video
-          className="ahero__bg"
-          src="/media/academy-graduates.mp4"
-          poster="/media/academy-graduates.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
-        <div className="ahero__frame">
+      <section className="hero">
+        <div className="hero__vid hero__vid--main">
           <video
             src="/media/academy-graduates.mp4"
             poster="/media/academy-graduates.jpg"
@@ -43,100 +37,114 @@ export default function AcademyPage() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             aria-label="Perfetto Academy graduates showing their certificates and the pieces they made"
           />
         </div>
-        <div className="hero__bottom">
-          <p className="hero__aside">Enrolment open for the next batch. Application fee {academy.fee}.</p>
-          <h1 className="hero__mark hero__mark--sm">Academy</h1>
-          <div className="hero__labels">
-            <span>Beginner · Intermediate · Advanced</span>
-            <span>2 &amp; 4 month programmes</span>
-            <span>Benin City, Nigeria</span>
-          </div>
+        <div className="hero__vid hero__vid--side">
+          <video
+            src="/media/workshop.mp4"
+            poster="/media/workshop.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Cutting fabric panels in the Perfetto studio"
+          />
+        </div>
+        <span className="sticker sticker--hero">Enrolment open</span>
+
+        <div className="hero__copy">
+          <p className="kicker">
+            Perfetto Academy
+            <br />
+            Benin City, Nigeria
+          </p>
+          <h1 className="mix mix--xl">
+            <span className="mix__heavy">Learn the</span>
+            <span>
+              <span className="mix__heavy">craft,</span> <span className="mix__serif">build</span>
+            </span>
+            <span className="mix__serif">your legacy</span>
+          </h1>
+          <WavyLink href="#levels">See the levels</WavyLink>
         </div>
       </section>
 
-      <section className="intro">
-        <Reveal className="intro__copy">
-          <p>
-            A hands-on fashion school teaching streetwear the way we make it at Perfetto. Come in as a complete beginner
-            or sharpen the skills you already have.
-          </p>
-          <a className="pill" href={whatsappLink(enrolMsg)} target="_blank" rel="noopener noreferrer">
-            Enrol on WhatsApp
-          </a>
-        </Reveal>
+      <section className="services" id="levels">
+        <p className="kicker">Choose your level</p>
+        <h2 className="mix">
+          <span>
+            <span className="mix__heavy">Three</span> <span className="mix__serif">levels</span>
+          </span>
+        </h2>
+        <div className="services__row">
+          {academy.levels.map((l, i) => (
+            <Reveal key={l.name} delay={i * 100}>
+              <div className="level-card" style={{ "--c": levelColours[i], "--r": `${levelTilts[i]}deg` }}>
+                <span className="level-card__n">0{i + 1}</span>
+                <span className="frame-card__title">{l.name}</span>
+                <p>{l.body}</p>
+                <span className="level-card__dur">{academy.durations.join(" or ")}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
-      <hr className="rule" />
-
-      <section className="levels">
-        {academy.levels.map((l, i) => (
-          <Reveal key={l.name} className="levels__row" delay={i * 80}>
-            <span className="levels__n">{i + 1}</span>
-            <h2>{l.name}</h2>
-            <p>{l.body}</p>
-            <span className="levels__dur">{academy.durations.join(" / ")}</span>
+      <section className="dark learn">
+        <div className="learn__inner">
+          <Reveal>
+            <p className="kicker kicker--light">What you&rsquo;ll learn</p>
+            <h2 className="mix mix--light">
+              <span className="mix__heavy">First stitch</span>
+              <span className="mix__serif">to finished set</span>
+            </h2>
           </Reveal>
-        ))}
-      </section>
-
-      <hr className="rule" />
-
-      <section className="makes">
-        <div className="make">
-          <div className="make__media">
-            <Image
-              src="/media/navy-piped-set.webp"
-              alt="Navy piped half-zip set, an example of the finishing students learn"
-              fill
-              sizes="(max-width: 860px) 100vw, 45vw"
-              className="is-on"
-            />
-          </div>
-          <div>
-            <p className="eyebrow make__eyebrow">What you&rsquo;ll learn</p>
-            <ol className="make__list make__list--static">
-              {learn.map((t, i) => (
-                <li key={t}>
-                  <span>
-                    <sup>{i + 1}</sup>
-                    {t}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
+          <ol className="learn__list">
+            {learn.map((t, i) => (
+              <Reveal as="li" key={t} delay={i * 50}>
+                <span className="learn__n">{String(i + 1).padStart(2, "0")}</span>
+                {t}
+              </Reveal>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section className="facts">
         {academy.facts.map((f, i) => (
-          <Reveal key={f} className="facts__cell" delay={i * 60}>
-            <sup>{i + 1}</sup>
-            <p>{f}</p>
+          <Reveal key={f} className="fact" delay={i * 70}>
+            <span className="fact__dot" style={{ "--c": ["#f0412b", "#f7941d", "#f6d2bd", "#400d1c"][i % 4] }} />
+            <p className="mix">
+              <span className={i % 2 ? "mix__serif" : "mix__heavy"}>{f}</span>
+            </p>
           </Reveal>
         ))}
       </section>
 
-      <section className="intro intro--wine">
-        <Reveal className="intro__copy">
-          <p className="eyebrow">Ready to start?</p>
-          <p>
-            Message us on WhatsApp to save your spot, or visit us at {site.address.line1}, {site.address.city}.
-          </p>
-          <div className="center center--row">
-            <a className="pill pill--light" href={whatsappLink(enrolMsg)} target="_blank" rel="noopener noreferrer">
-              Enrol now
-            </a>
-            <a className="pill pill--light" href={`tel:+${site.whatsapp}`}>
-              Call {site.phoneDisplay}
-            </a>
-          </div>
-        </Reveal>
+      <section className="enrol">
+        <p className="kicker">Ready to start?</p>
+        <h2 className="mix">
+          <span>
+            <span className="mix__heavy">Save your</span> <span className="mix__serif">spot</span>
+          </span>
+        </h2>
+        <p>
+          Message us on WhatsApp or visit us at {site.address.line1}, {site.address.city}.
+        </p>
+        <div className="center center--row">
+          <Btn href={whatsappLink(enrolMsg)} external tone="wine">
+            Enrol on WhatsApp
+          </Btn>
+          <Btn href={`tel:+${site.whatsapp}`} external tone="wine" arrow="☎">
+            {site.phoneDisplay}
+          </Btn>
+        </div>
       </section>
+
+      <ContactCTA title={["Want a set", "made for you?"]} />
     </>
   );
 }

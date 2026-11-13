@@ -32,16 +32,16 @@ export default function OrderForm() {
   };
 
   return (
-    <form className="lineform" onSubmit={submit}>
-      <label className="lineform__cell">
+    <form className="oform" onSubmit={submit}>
+      <label>
         <span>Name</span>
-        <input required value={form.name} onChange={set("name")} autoComplete="name" />
+        <input required value={form.name} onChange={set("name")} autoComplete="name" placeholder="Your name" />
       </label>
-      <label className="lineform__cell">
-        <span>Deliver to (city)</span>
-        <input value={form.city} onChange={set("city")} autoComplete="address-level2" />
+      <label>
+        <span>Deliver to</span>
+        <input value={form.city} onChange={set("city")} autoComplete="address-level2" placeholder="City" />
       </label>
-      <label className="lineform__cell">
+      <label>
         <span>Piece</span>
         <select value={form.piece} onChange={set("piece")}>
           {pieces.map((p) => (
@@ -50,7 +50,7 @@ export default function OrderForm() {
           <option>Something custom (my own design)</option>
         </select>
       </label>
-      <label className="lineform__cell">
+      <label>
         <span>Size</span>
         <select value={form.size} onChange={set("size")}>
           {sizes.map((s) => (
@@ -58,19 +58,20 @@ export default function OrderForm() {
           ))}
         </select>
       </label>
-      <label className="lineform__cell lineform__cell--full">
+      <label className="oform__full">
         <span>Colour</span>
         <input value={form.colour} onChange={set("colour")} placeholder="Any colour you like" />
       </label>
-      <label className="lineform__cell lineform__cell--full lineform__cell--tall">
+      <label className="oform__full">
         <span>Design notes</span>
-        <textarea rows={5} value={form.notes} onChange={set("notes")} placeholder="Name or logo to print, cropped or full length, piping colour…" />
+        <textarea rows={3} value={form.notes} onChange={set("notes")} placeholder="Name or logo to print, cropped or full length, piping colour…" />
       </label>
-      <div className="lineform__foot">
-        <p>Opens WhatsApp with your order typed out. Nothing is sent until you press send.</p>
-        <button className="pill pill--solid" type="submit">
-          Send on WhatsApp
+      <div className="oform__foot">
+        <button className="btn btn--pink" type="submit">
+          <span className="btn__ico" aria-hidden="true">→</span>
+          <span className="btn__lbl">Send order on WhatsApp</span>
         </button>
+        <p>Opens WhatsApp with your order typed out. Nothing is sent until you press send.</p>
       </div>
     </form>
   );
